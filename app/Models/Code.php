@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CodeStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,6 +42,7 @@ class Code extends Model
     protected function casts(): array
     {
         return [
+            'status' => CodeStatus::class,
             'redeemed_at' => 'datetime'
         ];
     }
