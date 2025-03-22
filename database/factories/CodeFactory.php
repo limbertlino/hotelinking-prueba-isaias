@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\CodeStatus;
 use App\Models\Offer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,7 +27,7 @@ class CodeFactory extends Factory
             'user_id' => User::factory(),
             'offer_id' => Offer::factory(),
             'code' => fake()->unique()->regexify('[A-Z0-9]{7}'),
-            'status' => $isRedeemed ? 'Redeemed' : 'Active',
+            'status' => $isRedeemed ? CodeStatus::Redeemed->value : CodeStatus::Active->value,
             'redeemed_at' => $isRedeemed ? fake()->dateTimeThisYear() : null
         ];
     }
