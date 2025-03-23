@@ -1,43 +1,110 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\Sanctum;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
-test('login screen can be rendered', function () {
-    $response = $this->get('/login');
+// Test de registro
+it('can register a new user', function () {
+  $response = $this->postJson('/api/register', [
+    'email' => 'test@example.com',
+    'password' => 'password123',
+  ]);
 
-    $response->assertStatus(200);
-});
-
-test('users can authenticate using the login screen', function () {
-    $user = User::factory()->create();
-
-    $response = $this->post('/login', [
-        'email' => $user->email,
-        'password' => 'password',
+  $response->assertStatus(200)
+    ->assertJsonStructure([
+      'message',
+      'data' => [
+        'user' => [
+          'type',
+          'id',
+          'attributes' => [
+            'email',
+          ],
+        ],
+      ],
     ]);
 
-    $this->assertAuthenticated();
-    $response->assertRedirect(route('dashboard', absolute: false));
+  $this->assertDatabaseHas('users', [
+    'email' => 'test@example.com',
+  ]);
 });
 
-test('users can not authenticate with invalid password', function () {
-    $user = User::factory()->create();
+it('cannot register with invalid data', function () {
+  $response = $this->postJson('/api/register', [
+    'email' => 'invalid-email',
+    'password' => '123',
+  ]);
 
-    $this->post('/login', [
-        'email' => $user->email,
-        'password' => 'wrong-password',
+  $response->assertStatus(422)
+    ->assertJsonValidationErrors(['email', 'password']);
+});
+
+it('can login with correct credentials', function () {
+  $user = User::factory()->create([
+    'email' => 'test@example.com',
+    'password' => Hash::make('password123'),
+  ]);
+
+  $response = $this->postJson('/api/login', [
+    'email' => 'test@example.com',
+    'password' => 'password123',
+  ]);
+
+  $response->assertStatus(200)
+    ->assertJsonStructure([
+      'message',
+      'data' => [
+        'user' => [
+          'type',
+          'id',
+          'attributes' => [
+            'email',
+          ],
+        ],
+        'token' => [
+          'type',
+          'attributes' => [
+            'token',
+          ],
+        ],
+      ],
     ]);
-
-    $this->assertGuest();
 });
 
-test('users can logout', function () {
-    $user = User::factory()->create();
+it('cannot login with incorrect credentials', function () {
+  $user = User::factory()->create([
+    'email' => 'test@example.com',
+    'password' => Hash::make('password123'),
+  ]);
 
-    $response = $this->actingAs($user)->post('/logout');
+  $response = $this->postJson('/api/login', [
+    'email' => 'test@example.com',
+    'password' => 'wrong-password',
+  ]);
 
-    $this->assertGuest();
-    $response->assertRedirect('/');
+  $response->assertStatus(401)
+    ->assertJson(['message' => 'Invalid credentials']);
+});
+
+it('can logout an authenticated user', function () {
+  $user = User::factory()->create();
+  Sanctum::actingAs($user);
+
+  $response = $this->postJson('/api/logout');
+
+  $response->assertStatus(200)
+    ->assertJson(['message' => 'Logged out successfully']);
+
+  $this->assertCount(0, $user->tokens);
+});
+
+it('cannot logout without authentication', function () {
+  $response = $this->postJson('/api/logout');
+
+  $response->assertStatus(401)
+    ->assertJson(['message' => 'Unauthenticated.']);
 });
