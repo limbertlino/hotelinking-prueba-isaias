@@ -5,8 +5,6 @@ namespace App\Services;
 use App\Enums\CodeStatus;
 use App\Models\User;
 use App\Models\Offer;
-use App\Models\Code;
-use App\Repositories\CodeRepository;
 use App\Repositories\UserCodeRepository;
 use App\Traits\ApiResponses;
 use Illuminate\Support\Str;

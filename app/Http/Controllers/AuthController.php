@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginUserRequest;
-use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\TokenResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;

@@ -20,10 +20,6 @@ class UserOfferController extends Controller
         $this->offerService = $offerService;
     }
 
-
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $result = $this->offerService->index($request->user());

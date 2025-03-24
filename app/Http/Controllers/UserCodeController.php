@@ -35,11 +35,11 @@ class UserCodeController extends Controller
         $result = $this->userCodeService->redeemCode($user, $code);
 
         if (!$result) {
-            return $this->error('Failed to redeem the code.', 500);
+            return $this->error('This code has already been redeemed.', 400);
         }
 
         return $this->ok('Code redeemed successfully', [
-            'code' => $result['code'],
+            'code' => new UserCodeResource($result['code'])
         ]);
     }
 }
