@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CodeResource;
+use App\Http\Resources\UserCodeResource;
 use App\Models\Offer;
 use App\Services\ClaimOfferService;
 use App\Traits\ApiResponses;
@@ -34,8 +34,10 @@ class ClaimOfferController extends Controller
             return $this->error('Failed to claim the offer. Please try again later.', 500);
         }
 
+
+
         return $this->ok('Offer claimed successfully', [
-            'code' => new CodeResource($result['code'])
+            'code' => new UserCodeResource($result['code'])
         ]);
 
     }

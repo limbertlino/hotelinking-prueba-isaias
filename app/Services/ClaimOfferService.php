@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Offer;
 use App\Models\Code;
 use App\Repositories\CodeRepository;
+use App\Repositories\UserCodeRepository;
 use App\Traits\ApiResponses;
 use Illuminate\Support\Str;
 
@@ -14,20 +15,19 @@ class ClaimOfferService
 {
   use ApiResponses;
 
-  protected $codeRepository;
+  protected $userCodeRepository;
 
-  public function __construct(CodeRepository $codeRepository)
+  public function __construct(UserCodeRepository $userCodeRepository)
   {
-    $this->codeRepository = $codeRepository;
+    $this->userCodeRepository = $userCodeRepository;
   }
-
 
   public function claimOffer(User $user, Offer $offer)
   {
     try {
-      $code = $this->codeRepository->create([
+      $code = $this->userCodeRepository->create([
         'code' => $this->generateUniqueCode(),
-        'status' => CodeStatus::Active, // Usa el enum
+        'status' => CodeStatus::Active,
         'user_id' => $user->id,
         'offer_id' => $offer->id,
       ]);

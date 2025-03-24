@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\OfferResource;
-use App\Models\Offer;
 use App\Services\OfferService;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
