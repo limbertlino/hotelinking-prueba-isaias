@@ -57,6 +57,4 @@ class Code extends Model
         return $this->belongsTo(Offer::class);
     }
 
-
-
 }

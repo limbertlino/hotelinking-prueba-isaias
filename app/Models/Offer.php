@@ -48,5 +48,10 @@ class Offer extends Model
     }
 
 
+    public function isClaimedByUser(User $user)
+    {
+        return $this->codes()->where('user_id', $user->id)->exists();
+    }
+
 
 }
