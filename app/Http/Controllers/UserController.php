@@ -19,9 +19,7 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(StoreUserRequest $request)
     {
         $userData = $request->validated();

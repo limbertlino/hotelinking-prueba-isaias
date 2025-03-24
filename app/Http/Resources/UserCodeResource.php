@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CodeResource extends JsonResource
+class UserCodeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,7 +20,11 @@ class CodeResource extends JsonResource
             'attributes' => [
                 'code' => $this->code,
                 'status' => $this->status,
+                'redeemedAt' => $this->redeemed_at?->toIso8601String(),
                 'createdAt' => $this->created_at->toIso8601String(),
+            ],
+            'meta' => [
+                'isRedeemed' => $this->status === 'redeemed',
             ],
             'relationships' => [
                 'user' => [
@@ -37,5 +41,6 @@ class CodeResource extends JsonResource
                 ],
             ],
         ];
+
     }
 }
