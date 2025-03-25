@@ -6,6 +6,11 @@ use App\Enums\CodeStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Represents a redeemable code associated with offers and users.
+ * 
+ * Tracks code status (active/redeemed) and redemption timestamp.
+ */
 class Code extends Model
 {
     /** @use HasFactory<\Database\Factories\CodeFactory> */
@@ -47,11 +52,23 @@ class Code extends Model
         ];
     }
 
+
+    /**
+     * Relationship: User who owns this code.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User>
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+
+    /**
+     * Relationship: Offer associated with this code.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Offer>
+     */
     public function offer()
     {
         return $this->belongsTo(Offer::class);

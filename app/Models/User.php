@@ -8,6 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * Represents an application user with authentication capabilities.
+ * Manages user credentials and associated redemption codes.
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -45,6 +49,11 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Relationship: All codes belonging to this user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Code>
+     */
     public function codes()
     {
         return $this->hasMany(Code::class);

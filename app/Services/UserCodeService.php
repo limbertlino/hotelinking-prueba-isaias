@@ -8,6 +8,9 @@ use App\Repositories\UserCodeRepository;
 use App\Traits\ApiResponses;
 use App\Models\User;
 
+/**
+ * Handles business logic for user code operations (retrieval and redemption).
+ */
 class UserCodeService
 {
   use ApiResponses;
@@ -19,6 +22,13 @@ class UserCodeService
     $this->userCodeRepository = $userCodeRepository;
   }
 
+  /**
+   * Retrieve all codes belonging to a user.
+   *
+   * @param User $user
+   * @return array|null ['codes' => Collection<Code>] or null on failure
+   * @throws \Exception Logs error if retrieval fails
+   */
   public function getUserCodes(User $user)
   {
     try {
@@ -33,6 +43,14 @@ class UserCodeService
     }
   }
 
+  /**
+   * Redeem a valid user code.
+   *
+   * @param User $user
+   * @param Code $code
+   * @return array|null ['code' => Code] if redeemed, null if invalid or error
+   * @throws \Exception Logs error if redemption fails
+   */
   public function redeemCode(User $user, Code $code)
   {
     try {

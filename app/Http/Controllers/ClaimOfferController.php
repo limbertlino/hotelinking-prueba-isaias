@@ -8,6 +8,9 @@ use App\Services\ClaimOfferService;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 
+/**
+ * Handles offer claiming functionality.
+ */
 class ClaimOfferController extends Controller
 {
     use ApiResponses;
@@ -20,6 +23,13 @@ class ClaimOfferController extends Controller
     }
 
 
+    /**
+     * Claims an offer for the authenticated user.
+     * 
+     * @param Request $request
+     * @param Offer $offer The offer to claim
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request, Offer $offer)
     {
         $user = $request->user();
@@ -33,8 +43,6 @@ class ClaimOfferController extends Controller
         if (!$result) {
             return $this->error('Failed to claim the offer. Please try again later.', 500);
         }
-
-
 
         return $this->ok('Offer claimed successfully', [
             'code' => new UserCodeResource($result['code'])

@@ -8,6 +8,9 @@ use App\Services\UserCodeService;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 
+/**
+ * Controller for managing user codes (viewing and redeeming).
+ */
 class UserCodeController extends Controller
 {
     use ApiResponses;
@@ -19,6 +22,12 @@ class UserCodeController extends Controller
         $this->userCodeService = $userCodeService;
     }
 
+    /**
+     * Get all codes belonging to the authenticated user.
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request)
     {
         $user = $request->user();
@@ -29,6 +38,13 @@ class UserCodeController extends Controller
         ]);
     }
 
+    /**
+     * Redeem a specific code.
+     * 
+     * @param Request $request
+     * @param Code $code The code to redeem
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function redeem(Request $request, Code $code)
     {
         $user = $request->user();
