@@ -1,11 +1,13 @@
-import { Link, Outlet } from 'react-router-dom';
+import { useAuth } from '@/AuthContext';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 export default function Layout() {
-    const isLoggedIn = !!localStorage.getItem('authToken');
+    const { isAuthenticated, logout } = useAuth();
+    const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem('authToken');
-        window.location.href = '/login';
+        logout();
+        navigate('/login');
     };
 
     return (
@@ -21,8 +23,11 @@ export default function Layout() {
             >
                 <h1>My App</h1>
                 <nav>
-                    {isLoggedIn ? (
+                    {isAuthenticated ? (
                         <>
+                            <Link to="/offers" style={{ color: 'white', marginRight: '1rem' }}>
+                                Mis Ofertas
+                            </Link>
                             <Link to="/codes" style={{ color: 'white', marginRight: '1rem' }}>
                                 Mis Códigos
                             </Link>

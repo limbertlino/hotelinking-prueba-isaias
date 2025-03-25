@@ -1,3 +1,5 @@
+import { useAuth } from '@/AuthContext';
+import { getToken } from '@/utils/jsonHelpers';
 import axios from 'axios';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +8,7 @@ export function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -16,10 +19,10 @@ export function LoginForm() {
                     email,
                     password,
                 });
-                console.log(response.data);
-                const token = response.data.data.token.attributes.token;
 
-                localStorage.setItem('authToken', token);
+                const token = getToken(response);
+
+                login(token);
 
                 navigate('/offers');
 
@@ -27,7 +30,7 @@ export function LoginForm() {
                 setPassword('');
             }
         } catch (error) {
-            console.error('Error en el registro', error);
+            console.error('Error en el login', error);
             setEmail('');
             setPassword('');
         }
