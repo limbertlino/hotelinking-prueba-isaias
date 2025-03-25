@@ -15,30 +15,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-
-
-
-        $users = User::factory(3)->create();
-        $offers = Offer::factory(4)->create();
+        $users = User::factory(4)->create();
+        $offers = Offer::factory(8)->create();
 
         // Code::factory(10)->create([
         //     'user_id' => fn() => $users->random()->id,
         //     'offer_id' => fn() => $offers->random()->id,
         // ]);
 
-        Code::factory(10)
+        Code::factory(4)
             ->recycle([$users, $offers])
             ->create([
                 'user_id' => fn() => $users->random()->id,
                 'offer_id' => fn() => $offers->random()->id,
             ]);
 
-
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }

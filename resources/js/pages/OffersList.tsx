@@ -1,4 +1,5 @@
-import api from '@/api';
+import OfferCard from '@/components/OfferCard';
+import { claimUserOffer, fetchUserOffers } from '@/services/offerService';
 import { OffersResponse } from '@/types/offers';
 import { produce } from 'immer';
 import { useEffect, useState } from 'react';
@@ -9,9 +10,8 @@ export default function OffersList() {
     useEffect(() => {
         const fetchOffers = async () => {
             try {
-                const response = await api.get('/users/offers');
-                let data = response.data;
-                setOffers(response.data);
+                const data = await fetchUserOffers();
+                setOffers(data);
             } catch (error) {
                 console.error('Error fetching codes:', error);
             }
@@ -33,8 +33,7 @@ export default function OffersList() {
                 }),
             );
 
-            const response = await api.post(`http://localhost:8000/api/offers/${id}/claim`);
-            console.log(response.data);
+            await claimUserOffer(id);
         } catch (error) {
             setOffers(
                 produce((draft) => {
@@ -51,16 +50,7 @@ export default function OffersList() {
         <>
             <p>Offers</p>
             {offers.data.offers.map((offer) => {
-                return (
-                    <div key={offer.id}>
-                        <h1>{offer.attributes.title}</h1>
-                        <p>{offer.attributes.description}</p>
-                        <h2>{offer.attributes.discount}% OFF!</h2>
-                        <button onClick={() => claimOffer(offer.id)} disabled={offer.meta.isClaimed}>
-                            {offer.meta.isClaimed ? 'Claimed' : 'Claim'}
-                        </button>
-                    </div>
-                );
+                return <OfferCard key={offer.id} offer={offer} onClaim={claimOffer} />;
             })}
         </>
     );

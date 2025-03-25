@@ -1,6 +1,5 @@
-import { useAuth } from '@/AuthContext';
-import { getToken } from '@/utils/jsonHelpers';
-import axios from 'axios';
+import { useAuth } from '@/contexts/AuthContext';
+import { loginUser } from '@/services/authService';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,17 +14,9 @@ export function LoginForm() {
 
         try {
             if (email && password) {
-                const response = await axios.post('http://localhost:8000/api/login', {
-                    email,
-                    password,
-                });
-
-                const token = getToken(response);
-
+                const token = await loginUser(email, password);
                 login(token);
-
                 navigate('/offers');
-
                 setEmail('');
                 setPassword('');
             }

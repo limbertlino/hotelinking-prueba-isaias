@@ -37,6 +37,11 @@ class UserCodeResource extends JsonResource
                     'data' => [
                         'type' => 'offers',
                         'id' => (string) $this->offer_id,
+                        'attributes' => [ 
+                            'title' => $this->offer->title,
+                            'description' => $this->offer->description,
+                            'discount' => $this->offer->discount,
+                        ],
                     ],
                 ],
             ],

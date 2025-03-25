@@ -1,4 +1,5 @@
-import api from '@/api';
+import CodeCard from '@/components/CodeCard';
+import { fetchUserCodes } from '@/services/codeService';
 import { CodesResponse } from '@/types/codes';
 import { useEffect, useState } from 'react';
 
@@ -6,18 +7,16 @@ export default function CodesList() {
     const [codes, setCodes] = useState<CodesResponse | null>(null);
 
     useEffect(() => {
-        const fetchCodes = async () => {
+        const loadCodes = async () => {
             try {
-                const response = await api.get('/users/codes');
-                let data = response.data;
-                console.log(data);
-                setCodes(response.data);
+                const data = await fetchUserCodes();
+                setCodes(data);
             } catch (error) {
                 console.error('Error fetching codes:', error);
             }
         };
 
-        fetchCodes();
+        loadCodes();
     }, []);
 
     if (!codes) {
@@ -27,12 +26,9 @@ export default function CodesList() {
     return (
         <>
             <p>Codigos</p>
-            {codes.data.codes.map((code) => (
-                <div key={code.id}>
-                    <h1>{code.attributes.code}</h1>
-                    <p></p>
-                </div>
-            ))}
+            {codes.data.codes.map((code) => {
+                return <CodeCard key={code.id} code={code} />;
+            })}
         </>
     );
 }

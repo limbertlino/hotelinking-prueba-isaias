@@ -1,33 +1,27 @@
-import React from 'react';
-
-interface OfferAttributes {
-    title: string;
-    description: string;
-    discount: number;
-    createdAt: string;
-}
-
-interface OfferMeta {
-    isClaimed: boolean;
-}
-
 interface OfferCardProps {
-    type: string;
-    id: string;
-    attributes: OfferAttributes;
-    meta: OfferMeta;
+    offer: {
+        id: string;
+        attributes: {
+            title: string;
+            description: string;
+            discount: number;
+        };
+        meta?: {
+            isClaimed?: boolean;
+        };
+    };
+    onClaim?: (id: string) => void;
 }
 
-export const OfferCard: React.FC<OfferCardProps> = ({ type, id, attributes, meta }) => {
+export default function OfferCard({ offer, onClaim }: OfferCardProps) {
     return (
-        <div>
-            <h3>{attributes.title}</h3>
-            <p>{attributes.description}</p>
-            <div>
-                <span>Descuento: {attributes.discount}%</span>
-                <span>Fecha: {new Date(attributes.createdAt).toLocaleDateString()}</span>
-            </div>
-            <div>{meta.isClaimed ? <span>Reclamada</span> : <button>Reclamar oferta</button>}</div>
+        <div key={offer.id}>
+            <h3>{offer.attributes.title}</h3>
+            <p>{offer.attributes.description}</p>
+            <p>{offer.attributes.discount}% OFF</p>
+            <button onClick={() => onClaim?.(offer.id)} disabled={offer.meta?.isClaimed}>
+                {offer.meta?.isClaimed ? 'Claimed' : 'Claim'}
+            </button>
         </div>
     );
-};
+}

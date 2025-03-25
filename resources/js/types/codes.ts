@@ -25,6 +25,11 @@ export interface Code {
             data: {
                 type: 'offers';
                 id: string;
+                attributes: {
+                    title: string;
+                    description: string;
+                    discount: number;
+                };
             };
         };
     };
