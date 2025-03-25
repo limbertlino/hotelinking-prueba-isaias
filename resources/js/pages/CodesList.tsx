@@ -25,10 +25,14 @@ export default function CodesList() {
 
     return (
         <>
-            <p>Codigos</p>
-            {codes.data.codes.map((code) => {
-                return <CodeCard key={code.id} code={code} />;
-            })}
+            <div className="container mx-auto p-4">
+                <h2 className="mb-4 text-center text-xl font-bold">Códigos</h2>
+                <div className="grid grid-cols-1 place-items-center gap-6 sm:grid-cols-2 md:grid-cols-2">
+                    {codes.data.codes.map((code) => (
+                        <CodeCard key={code.id} code={code} />
+                    ))}
+                </div>
+            </div>
         </>
     );
 }
