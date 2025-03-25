@@ -9,6 +9,9 @@ use App\Repositories\UserCodeRepository;
 use App\Traits\ApiResponses;
 use Illuminate\Support\Str;
 
+/**
+ * Handles the business logic for claiming offers and generating redemption codes.
+ */
 class ClaimOfferService
 {
   use ApiResponses;
@@ -20,6 +23,15 @@ class ClaimOfferService
     $this->userCodeRepository = $userCodeRepository;
   }
 
+
+  /**
+   * Claim an offer for a user and generate a unique redemption code.
+   *
+   * @param User $user The user claiming the offer
+   * @param Offer $offer The offer being claimed
+   * @return array|null ['code' => Code] on success, null on failure
+   * @throws \Exception Logs error if claiming fails
+   */
   public function claimOffer(User $user, Offer $offer)
   {
     try {
@@ -39,6 +51,11 @@ class ClaimOfferService
     }
   }
 
+  /**
+   * Generates a unique 7-character uppercase code.
+   *
+   * @return string The generated code
+   */
   protected function generateUniqueCode(): string
   {
     return Str::upper(Str::random(7));

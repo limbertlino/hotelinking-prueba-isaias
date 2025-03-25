@@ -7,6 +7,9 @@ use App\Traits\ApiResponses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+/**
+ * Handles authentication business logic.
+ */
 class AuthService
 {
   use ApiResponses;
@@ -17,6 +20,13 @@ class AuthService
     $this->authRepository = $authRepository;
   }
 
+  /**
+   * Authenticate user and generate access token.
+   *
+   * @param array $credentials ['email' => string, 'password' => string]
+   * @return array|null ['user' => User, 'token' => string] or null on failure
+   * @throws \Exception Logs error on authentication failure
+   */
   public function login($credentials)
   {
 
@@ -41,6 +51,12 @@ class AuthService
     }
   }
 
+  /**
+   * Revoke the current user's access token.
+   *
+   * @param Request $request
+   * @return bool Always returns true
+   */
   public function logout(Request $request)
   {
     $request->user()->currentAccessToken()->delete();

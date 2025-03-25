@@ -5,11 +5,16 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * JSON resource for user code representation.
+ * Formats user code data with relationships according to JSON:API specifications.
+ */
 class UserCodeResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
+     * Transform the user code into an array.
      *
+     * @param Request $request
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array
@@ -37,7 +42,7 @@ class UserCodeResource extends JsonResource
                     'data' => [
                         'type' => 'offers',
                         'id' => (string) $this->offer_id,
-                        'attributes' => [ 
+                        'attributes' => [
                             'title' => $this->offer->title,
                             'description' => $this->offer->description,
                             'discount' => $this->offer->discount,

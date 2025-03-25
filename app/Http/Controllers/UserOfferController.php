@@ -8,6 +8,9 @@ use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 
 
+/**
+ * Controller for managing user-specific offers.
+ */
 class UserOfferController extends Controller
 {
 
@@ -20,6 +23,12 @@ class UserOfferController extends Controller
         $this->offerService = $offerService;
     }
 
+    /**
+     * Get all offers available for the authenticated user.
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse Returns a collection of offers
+     */
     public function index(Request $request)
     {
         $result = $this->offerService->index($request->user());

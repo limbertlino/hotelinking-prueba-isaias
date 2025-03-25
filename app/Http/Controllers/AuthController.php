@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Traits\ApiResponses;
 use App\Services\AuthService;
 
+/**
+ * Handles user authentication and session management.
+ */
 class AuthController extends Controller
 {
     use ApiResponses;
@@ -20,6 +23,14 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
+    /**
+     * Authenticates a user and returns access token.
+     * 
+     * @param LoginUserRequest $request Validated login credentials
+     * @return \Illuminate\Http\JsonResponse
+     * 
+     * 
+     */
     public function login(LoginUserRequest $request)
     {
         $credentials = $request->validated();
@@ -39,6 +50,15 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Terminates the current user session.
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @response {
+     *   "message": "Logged out successfully"
+     * }
+     */
     public function logout(Request $request)
     {
         $this->authService->logout($request);

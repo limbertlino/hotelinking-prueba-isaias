@@ -5,8 +5,18 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * JSON resource for Offer model representation.
+ * Formats offer data according to JSON:API specifications.
+ */
 class OfferResource extends JsonResource
 {
+    /**
+     * Transform the offer into an array.
+     *
+     * @param Request $request
+     * @return array<string, mixed>
+     */
     public function toArray(Request $request): array
     {
         return [

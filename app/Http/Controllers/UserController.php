@@ -7,6 +7,9 @@ use App\Http\Resources\UserResource;
 use App\Services\UserService;
 use App\Traits\ApiResponses;
 
+/**
+ * Handles user registration operations.
+ */
 class UserController extends Controller
 {
 
@@ -19,7 +22,13 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    
+
+    /**
+     * Register a new user.
+     * 
+     * @param StoreUserRequest $request Validated user data
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StoreUserRequest $request)
     {
         $userData = $request->validated();
