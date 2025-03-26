@@ -1,13 +1,13 @@
 # Hotelinking Prueba
 
-## Prerrequisitos
+## Requisitos previos
 
 Asegúrate de tener instalados los siguientes requisitos en tu máquina de desarrollo:
 
 - **Node.js** - Puedes instalar Node siguiendo estas instrucciones:
 https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating 
 
-  Una vez instalado puedes obtener la ultima version LTS con este comando:
+  Una vez instalado puedes obtener la última versión LTS con este comando:
   ```bash
     nvm install --lts 
   ```
@@ -40,7 +40,7 @@ composer install
 ```bash
 cp .env.example .env
 ```
-También se recomienda crear un archivo `.env.testing` para pruebas, con los mismos valores pero con una base de datos diferente para evitar afectar los datos principales.
+También se recomienda crear un archivo `.env.testing` para pruebas, con los mismos valores de .env pero con una base de datos diferente para evitar afectar los datos principales.
 ### 4. Configurar base de datos
 Edita el archivo .env con tus credenciales
 ```bash
@@ -52,7 +52,7 @@ DB_USERNAME=<NOMBRE_USER_MYSQL>
 DB_PASSWORD=<PASSWORD>
 ```
 
-### 5. Generar Clave de aplicacion
+### 5. Generar Clave de aplicación
 ```bash
 php artisan key:generate
 ```
@@ -74,6 +74,14 @@ npm install
 composer run dev
 ```
 
+### 10. Acceder a la aplicación
+Puedes acceder mediante http://localhost:8000 o http://127.0.0.1:8000
+
+**Recuerda** que los usuarios generados por el seed pueden visualizarse en la tabla users de tu base de datos y que su contraseña por defecto es: password
+
+Si tienes algún problema con la base de datos de los test revisa el archivo phpunit.xml, ahi puedes configurar los datos necesarios para tu base de datos de testing.
+
+
 ## Comandos útiles
 
 ### Ejecutar migraciones y seeders
@@ -86,7 +94,7 @@ php artisan migrate --seed
 
 ## Ejecutar pruebas del backend
 
-Para ejecutar las pruebas del backend con PHPUnit, usa el siguiente comando dentro del contenedor:
+Para ejecutar las pruebas del backend con PHPUnit, usa el siguiente comando:
 
 ```bash
 php artisan test
@@ -102,5 +110,5 @@ php artisan test --verbose
 
 - **Laravel** - Framework de PHP para desarrollo web.
 - **MySQL** - Base de datos.
-- **React** - Biblioteca de JavaScript para interfaces de usuario..
+- **React** - Biblioteca de JavaScript para interfaces de usuario.
 
