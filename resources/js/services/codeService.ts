@@ -12,3 +12,7 @@ export const fetchUserCodes = async (): Promise<CodesResponse> => {
     const response = await api.get('/users/codes');
     return response.data;
 };
+
+export const redeemUserCode = async (id: string): Promise<void> => {
+    await api.patch(`/codes/${id}/redeem`);
+};

@@ -35,7 +35,7 @@ export default function OfferCard({ offer, onClaim }: OfferCardProps) {
                     offer.meta?.isClaimed ? 'cursor-not-allowed bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
                 }`}
             >
-                {offer.meta?.isClaimed ? 'Reclamado' : 'Reclamar'}
+                {offer.meta?.isClaimed ? 'Oferta Reclamada' : 'Reclamar Oferta'}
             </button>
         </div>
     );
