@@ -48,14 +48,7 @@ export default function OffersList() {
 
     return (
         <>
-            {/* <div className="container mx-auto p-4">
-                <h2 className="mb-4 text-center text-xl font-bold">Ofertas</h2>
-                <div className="grid grid-cols-1 place-items-center gap-6 sm:grid-cols-2 md:grid-cols-2">
-                    {offers.data.offers.map((offer) => {
-                        return <OfferCard key={offer.id} offer={offer} onClaim={claimOffer} />;
-                    })}
-                </div>
-            </div> */}
+            
             <div className="container mx-auto p-4">
                 <h2 className="mb-4 text-center text-xl font-bold">Ofertas</h2>
                 <div className="grid grid-cols-1 place-items-center items-stretch gap-6 sm:grid-cols-2 md:grid-cols-2">

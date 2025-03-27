@@ -117,51 +117,6 @@ export default function RegisterForm() {
                     </form>
                 </div>
             </div>
-
-            {/* <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        {...register('email', {
-                            required: 'Email es requerido',
-                            pattern: {
-                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                message: 'Email inválido',
-                            },
-                        })}
-                    />
-                    {errors.email && <span>{errors.email.message}</span>}
-                </div>
-
-                <div>
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        {...register('password', {
-                            required: 'Password es requerido',
-                            minLength: {
-                                value: 6,
-                                message: 'Mínimo 6 caracteres',
-                            },
-                        })}
-                    />
-                    {errors.password && <span>{errors.password.message}</span>}
-                </div>
-
-                <div>
-                    <label>Confirmar Password</label>
-                    <input
-                        type="password"
-                        {...register('confirmPassword', {
-                            validate: (value) => value === watch('password') || 'Las contraseñas no coinciden',
-                        })}
-                    />
-                    {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
-                </div>
-
-                <button type="submit">Registrarse</button>
-            </form> */}
         </>
     );
 }
